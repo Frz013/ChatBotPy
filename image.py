@@ -3,21 +3,29 @@ import requests
 from bs4 import BeautifulSoup
 import uuid
 import os
+import io
 
-def edit_images():
-    prompt = str(input("Masukan Prompt: \n"))
+def edit_images(user_prompt, user_images):
     client = Client("selfit-camera/Omni-Image-Editor")
     try: 
         result = client.predict(
-                input_image=handle_file('assets/input_images/kurisu.png'),
-                prompt=prompt,
+                input_image=handle_file(user_images),
+                prompt= user_prompt,
                 api_name="/edit_image_interface"
         )
         html_output, status, extra_info = result
-        # print(f"Status; {status}\n html result: {html_output}")
-        save_images(html_output)
+
+        soup = BeautifulSoup(html_output, 'html.parser')
+        img_tag = soup.find('img')
+        img_url = img_tag['src'] if img_tag else None
+
+        response = requests.get(img_url)
+        edit_result = io.BytesIO(response.content)
+        edit_result.seek(0)
+        return edit_result
+    
     except Exception as e:
-        print(f"Terjadi kesalahan: {e}")
+        return 
 
 def save_images(html_output, folder_name='output_images'):
 
@@ -31,8 +39,10 @@ def save_images(html_output, folder_name='output_images'):
     img_url = img_tag['src'] if img_tag else None
 
     response = requests.get(img_url)
-    with open(save_path, 'wb') as file:
-        file.write(response.content)
+
+    # with open(save_path, 'wb') as file:
+    #     file.write(response.content)
+    
 
 if __name__ == "__main__":
     edit_images()
