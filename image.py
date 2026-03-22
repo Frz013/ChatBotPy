@@ -22,7 +22,7 @@ def edit_images(user_prompt, user_images):
         response = requests.get(img_url)
         edit_result = io.BytesIO(response.content)
         edit_result.seek(0)
-        return edit_result
+        return edit_result, img_url
     
     except Exception as e:
         return 
