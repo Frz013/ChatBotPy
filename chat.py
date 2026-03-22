@@ -6,12 +6,12 @@ from groq import Groq
 
 load_dotenv()
 
-roleAI = "kamu adalah AI terminal yang serba tahu. berikan jawaban dengan teks yang mudah dibaca diterminal tanpa terlalu banyak simbol. buat jawaban menggunakan bahasa Indonesia yang sesuai dengan kaidah kebahansaan Indonesia serta mudah dimengerti dan dipahami"
+roleAI = "kamu adalah AI chatbot yang serba tahu. berikan jawaban dengan teks yang mudah dibaca diterminal tanpa terlalu banyak simbol. buat jawaban menggunakan bahasa Indonesia yang sesuai dengan kaidah kebahansaan Indonesia serta mudah dimengerti dan dipaham."
 
-def main():
-    model = int(input("Pilih model AI yang akan digunakan:\n1. Gemini\n2. Ollama\nPilihan model: "))
+def askAI(prompt):
+    model = 2
     while True:
-        user_prompt = get_user_prompt() 
+        user_prompt = prompt
         ai_memory = read_memory()
         contents = "berikut adalah hasil output dari prompt sebelumnya: " + ai_memory + "\nabaikan jika tidak berhubungan dengan prompt saat ini\n" + "prompt saat ini: " + user_prompt
 
@@ -56,9 +56,9 @@ def main():
 
             hasil_generate = response.choices[0].message.content
                     
-        print("Loading...\n\n")
-        output(hasil_generate)
         create_memory(hasil_generate)
+
+        return hasil_generate 
 
 
 def read_memory():
@@ -68,7 +68,7 @@ def read_memory():
             return content
 
     except FileNotFoundError:
-        print("The file was not found.")
+        return
 
 def create_memory(hasil_output_AI):
     try:
@@ -76,14 +76,7 @@ def create_memory(hasil_output_AI):
             file.write(hasil_output_AI)
 
     except FileNotFoundError:
-        print("The file was not found.")
-
-def get_user_prompt():
-    prompt = str(input("\n\nMasukan Prompt: "))
-    return prompt
-
-def output(hasil_generate):
-    hasil = print(hasil_generate)
+        return
 
 if __name__ == "__main__":
-    main()
+    askAI()

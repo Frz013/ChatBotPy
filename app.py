@@ -4,6 +4,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import io
 from image import edit_images
+from chat import askAI
 
 load_dotenv()
 token = os.getenv("DISCORD_TOKEN")
@@ -59,7 +60,16 @@ async def edit(ctx, *, user_prompt: str = None):
     output_file = discord.File(images_result, filename="images_result.png")
     await ctx.reply("hasil edit: ", file=output_file)
 
+@bot.command()
+async def ask(ctx, *, user_prompt: str = None):
 
+    if user_prompt is None:
+        await ctx.send("Tolong masukkan prompt anda!")
+        return
+    
+    ask_result = askAI(user_prompt)
+    await ctx.send("Loading...") 
+    await ctx.send(ask_result) 
 
 
 bot.run(token)

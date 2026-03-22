@@ -1,25 +1,3 @@
-Tentu saja, Anda dapat langsung upload gambar dari local tanpa perlu mengonversi format file terlebih dahulu. Namun, perlu diingat bahwa beberapa API mungkin memiliki syarat penggunaan tertentu, seperti format file yang didukung atau ukuran gambar maksimum.
+Herta dari HSR (Harta Sosial dan Riset) adalah sebuah karakter fiksi dalam serial animasi dan game yang populer. HSR adalah sebuah perusahaan yang bergerak di bidang teknologi dan penelitian, dan Herta adalah salah satu karakter utama yang bekerja di perusahaan tersebut.
 
-Dalam contoh kode yang disediakan, Anda dapat langsung membaca gambar dari file lokal dan menggunakannya sebagai data yang akan diupload ke API. Contoh kode sederhana adalah sebagai berikut:
-
-```python
-import requests
-
-# Koneksi ke API
-api_key = "API_KEY_ANDA"
-url = "https://vision.googleapis.com/v1/images:annotate?key=" + api_key
-
-# Buka gambar dari file lokal
-file_name = "gambar.jpg"
-image_data = open(file_name, "rb").read()
-
-# Mengirimkan gambar ke API
-headers = {"Content-Type": "application/json"}
-data = {"requests": [{"image": {"content": image_data}}]}
-response = requests.post(url, headers=headers, data=image_data)
-
-# Membaca hasil respons API
-print(response.text)
-```
-
-Dalam contoh di atas, kita membuka gambar dari file lokal menggunakan `open()` dan membacanya sebagai byte menggunakan `read()`. Kemudian, kita mengirimkan data gambar ke API menggunakan metode POST. Pastikan Anda memiliki hak akses untuk membaca file gambar dari lokasi tersebut.
+Sayangnya, saya tidak dapat menemukan informasi yang cukup tentang Herta dari HSR, karena informasi yang tersedia tentang karakter ini sangat terbatas. Jika Anda memiliki lebih banyak informasi tentang konteks atau latar belakang Herta dari HSR, saya dapat mencoba untuk memberikan penjelasan yang lebih akurat.
